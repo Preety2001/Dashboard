@@ -6,6 +6,8 @@ import Profile from './components/Profile';
 import FeesInfo from './components/FeesInfo';
 import Departments from './components/Departments';
 import Scholarships from './components/Scholarships';
+import Header from './components/Header'; // Import the Header component
+
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -13,7 +15,7 @@ const App = () => {
   const [viewFeesInfo, setViewFeesInfo] = useState(false);
   const [viewDepartments, setViewDepartments] = useState(false);
   const [viewScholarships, setViewScholarships] = useState(false);
-  const [dropdownVisible, setDropdownVisible] = useState(false); // New state for controlling dropdown visibility
+  const [dropdownVisible, setDropdownVisible] = useState(false);
 
   const [loggedInUser, setLoggedInUser] = useState({
     adminName: '',
@@ -38,7 +40,7 @@ const App = () => {
     setViewFeesInfo(false);
     setViewDepartments(false);
     setViewScholarships(false);
-    setDropdownVisible(false); // Hide dropdown on logout
+    setDropdownVisible(false);
   };
 
   const handleViewProfile = () => {
@@ -46,7 +48,7 @@ const App = () => {
     setViewFeesInfo(false);
     setViewDepartments(false);
     setViewScholarships(false);
-    setDropdownVisible(false); // Hide dropdown when navigating
+    setDropdownVisible(false);
   };
 
   const handleViewFeesInfo = () => {
@@ -54,7 +56,7 @@ const App = () => {
     setViewProfile(false);
     setViewDepartments(false);
     setViewScholarships(false);
-    setDropdownVisible(false); // Hide dropdown when navigating
+    setDropdownVisible(false);
   };
 
   const handleViewDepartments = () => {
@@ -62,7 +64,7 @@ const App = () => {
     setViewProfile(false);
     setViewFeesInfo(false);
     setViewScholarships(false);
-    setDropdownVisible(false); // Hide dropdown when navigating
+    setDropdownVisible(false);
   };
 
   const handleViewScholarships = () => {
@@ -70,7 +72,7 @@ const App = () => {
     setViewProfile(false);
     setViewFeesInfo(false);
     setViewDepartments(false);
-    setDropdownVisible(false); // Hide dropdown when navigating
+    setDropdownVisible(false);
   };
 
   const handleBackToDashboard = () => {
@@ -80,12 +82,10 @@ const App = () => {
     setViewScholarships(false);
   };
 
-  // Toggle dropdown visibility on click
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
-  // Hide dropdown when the mouse leaves the dropdown area
   const handleMouseLeaveDropdown = () => {
     setDropdownVisible(false);
   };
@@ -94,25 +94,14 @@ const App = () => {
     <div className="App">
       {/* Only show the header if the user is logged in */}
       {isLoggedIn && (
-        <header className="header">
-          <div className="header-logo">
-            <img src="iba.png" alt="Logooooooo" /> {/* Ensure the path is correct */}
-          </div>
-          <div 
-            className="header-dropdown" 
-            onMouseLeave={handleMouseLeaveDropdown} // Hide the dropdown when mouse leaves
-          >
-            <button className="dropdown-button" onClick={toggleDropdown}>
-              &#x2630; {/* You can replace this with a hamburger icon */}
-            </button>
-            {dropdownVisible && ( // Show dropdown based on state
-              <div className="dropdown-menu">
-                <button className="dropdown-item" onClick={handleViewProfile}>Profile</button>
-                <button className="dropdown-item" onClick={handleLogout}>Logout</button>
-              </div>
-            )}
-          </div>
-        </header>
+        <Header 
+          loggedInUser={loggedInUser}
+          toggleDropdown={toggleDropdown}
+          dropdownVisible={dropdownVisible}
+          handleMouseLeaveDropdown={handleMouseLeaveDropdown}
+          handleViewProfile={handleViewProfile}
+          handleLogout={handleLogout}
+        />
       )}
 
       {/* Content rendering based on conditions */}

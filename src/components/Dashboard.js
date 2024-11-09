@@ -4,7 +4,6 @@ import Departments from './Departments'; // Import the Departments component
 import Scholarships from './Scholarships'; // Import the Scholarships component
 // import Header from './header';
 
-
 const dashboardData = [
   {
     key: 1,
@@ -90,9 +89,6 @@ const Dashboard = ({ handleLogout, onViewProfile, onViewFeesInfo, onViewDepartme
               </div>
             ))}
           </div>
-          <button className="btn btn-danger logout-btn" onClick={handleLogout}>
-            Logout
-          </button>
         </div>
       )}
     </div>

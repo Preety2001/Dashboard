@@ -1,50 +1,35 @@
-import React, { useState, useEffect, useRef } from 'react';
-import logo from '../logo-white.png'; // Adjust path based on the location of your logo file
+// Header.js
+import React from 'react';
 
-
-const Header = ({ onLogout, onViewProfile }) => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
-
-  const toggleDropdown = () => {
-    setDropdownOpen(prevState => !prevState);
-  };
-
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setDropdownOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    if (dropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [dropdownOpen]);
-
+const Header = ({
+  loggedInUser,
+  toggleDropdown,
+  dropdownVisible,
+  handleMouseLeaveDropdown,
+  handleViewProfile,
+  handleLogout,
+}) => {
   return (
     <header className="header">
-      {/* Logo Section */}
-      <div className="header-logo">
-        <img src={logo} alt="Logo" />
+      <div className="header-left">
+        <div className="header-logo">
+          <img src="iba.png" alt="Logo" /> {/* Ensure the path is correct */}
+        </div>
+        <div className="header-title">
+          <h1>Sukkur IBA Admin Portal</h1>
+        </div>
       </div>
-
-      {/* Dropdown Menu Section */}
-      <div className="header-dropdown" ref={dropdownRef}>
+      <div 
+        className="header-dropdown" 
+        onMouseLeave={handleMouseLeaveDropdown} // Hide the dropdown when mouse leaves
+      >
         <button className="dropdown-button" onClick={toggleDropdown}>
-          &#9776; {/* Hamburger icon */}
+          &#x2630; {/* You can replace this with a hamburger icon */}
         </button>
-        {dropdownOpen && (
+        {dropdownVisible && ( // Show dropdown based on state
           <div className="dropdown-menu">
-            <button className="dropdown-item" onClick={onViewProfile}>
-              Profile
-            </button>
-            <button className="dropdown-item" onClick={onLogout}>
-              Logout
-            </button>
+            <button className="dropdown-item" onClick={handleViewProfile}>Profile</button>
+            <button className="dropdown-item" onClick={handleLogout}>Logout</button>
           </div>
         )}
       </div>
