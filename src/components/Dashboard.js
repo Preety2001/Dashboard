@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import FeesInfo from './FeesInfo';
 import Departments from './Departments'; // Import the Departments component
 import Scholarships from './Scholarships'; // Import the Scholarships component
-import Header from './header';
+// import Header from './header';
 
 
 const dashboardData = [

@@ -13,6 +13,7 @@ const App = () => {
   const [viewFeesInfo, setViewFeesInfo] = useState(false);
   const [viewDepartments, setViewDepartments] = useState(false);
   const [viewScholarships, setViewScholarships] = useState(false);
+  const [dropdownVisible, setDropdownVisible] = useState(false); // New state for controlling dropdown visibility
 
   const [loggedInUser, setLoggedInUser] = useState({
     adminName: '',
@@ -37,6 +38,7 @@ const App = () => {
     setViewFeesInfo(false);
     setViewDepartments(false);
     setViewScholarships(false);
+    setDropdownVisible(false); // Hide dropdown on logout
   };
 
   const handleViewProfile = () => {
@@ -44,6 +46,7 @@ const App = () => {
     setViewFeesInfo(false);
     setViewDepartments(false);
     setViewScholarships(false);
+    setDropdownVisible(false); // Hide dropdown when navigating
   };
 
   const handleViewFeesInfo = () => {
@@ -51,6 +54,7 @@ const App = () => {
     setViewProfile(false);
     setViewDepartments(false);
     setViewScholarships(false);
+    setDropdownVisible(false); // Hide dropdown when navigating
   };
 
   const handleViewDepartments = () => {
@@ -58,6 +62,7 @@ const App = () => {
     setViewProfile(false);
     setViewFeesInfo(false);
     setViewScholarships(false);
+    setDropdownVisible(false); // Hide dropdown when navigating
   };
 
   const handleViewScholarships = () => {
@@ -65,6 +70,7 @@ const App = () => {
     setViewProfile(false);
     setViewFeesInfo(false);
     setViewDepartments(false);
+    setDropdownVisible(false); // Hide dropdown when navigating
   };
 
   const handleBackToDashboard = () => {
@@ -74,26 +80,42 @@ const App = () => {
     setViewScholarships(false);
   };
 
+  // Toggle dropdown visibility on click
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
+  // Hide dropdown when the mouse leaves the dropdown area
+  const handleMouseLeaveDropdown = () => {
+    setDropdownVisible(false);
+  };
+
   return (
     <div className="App">
       {/* Only show the header if the user is logged in */}
       {isLoggedIn && (
         <header className="header">
           <div className="header-logo">
-            <img src="/path-to-your-logo/logo.png" alt="Logo" /> {/* Ensure the path is correct */}
+            <img src="iba.png" alt="Logooooooo" /> {/* Ensure the path is correct */}
           </div>
-          <div className="header-dropdown">
-            <button className="dropdown-button">
+          <div 
+            className="header-dropdown" 
+            onMouseLeave={handleMouseLeaveDropdown} // Hide the dropdown when mouse leaves
+          >
+            <button className="dropdown-button" onClick={toggleDropdown}>
               &#x2630; {/* You can replace this with a hamburger icon */}
             </button>
-            <div className="dropdown-menu">
-              <button className="dropdown-item" onClick={handleViewProfile}>Profile</button>
-              <button className="dropdown-item" onClick={handleLogout}>Logout</button>
-            </div>
+            {dropdownVisible && ( // Show dropdown based on state
+              <div className="dropdown-menu">
+                <button className="dropdown-item" onClick={handleViewProfile}>Profile</button>
+                <button className="dropdown-item" onClick={handleLogout}>Logout</button>
+              </div>
+            )}
           </div>
         </header>
       )}
 
+      {/* Content rendering based on conditions */}
       {!isLoggedIn ? (
         <LoginForm onLoginSuccess={handleLoginSuccess} />
       ) : viewProfile ? (
